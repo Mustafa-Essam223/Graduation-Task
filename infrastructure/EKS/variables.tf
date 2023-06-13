@@ -15,3 +15,4 @@ variable "vpc-id" {
 variable "subnet_list____ids" {
   type = list(string)
 }
+variable "ssh_key" {}

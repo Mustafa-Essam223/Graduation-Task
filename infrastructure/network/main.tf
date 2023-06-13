@@ -25,13 +25,31 @@ resource "aws_security_group" "eks_control_plane_sg" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Adjust as per your security requirements
+    cidr_blocks = ["0.0.0.0/0"] 
+  }
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] 
+  }
+  ingress {
+    from_port   = 30357
+    to_port     = 30357
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] 
+  }
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] 
   }
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]  # Adjust as per your security requirements
+    cidr_blocks = ["0.0.0.0/0"]  
   }
 }
 
@@ -39,10 +57,16 @@ resource "aws_subnet" "main-vpc-subnets" {
   count = 4 
   vpc_id = aws_vpc.main-vpc.id 
   cidr_block = var.cidr_blocks[count.index]
-  availability_zone =  var.zones[count.index]
-  map_public_ip_on_launch = count.index < 2? true:false
+  #default  = ["public-us-east-1a","public-us-east-2a","private-us-east-1b","private-us-east-2b"]
+  
+  availability_zone =  count.index == 0 || count.index == 2 ? var.zones[0] : var.zones[1]  
+  map_public_ip_on_launch = count.index < 2 ? true : false
   tags = {
   Name = var.subnet-names[count.index]
+  "kubernetes.io/cluster/eks-cluster"       = "shared" 
+  "kubernetes.io/role/internal-elb" = 1
+  "kubernetes.io/role/elb" = 1
+
   }
 
 } 
@@ -85,17 +109,21 @@ resource "aws_route_table" "public-route" {
   }
 }
 
-resource "aws_route_table_association" "public-route-assiciate" {
+resource "aws_route_table_association" "public-route-assiciate" {  
   count = 2
   subnet_id = aws_subnet.main-vpc-subnets[count.index].id
   route_table_id = aws_route_table.public-route.id
 }
 
 resource "aws_route_table_association" "private-route-association" {
-  count = 2
-  subnet_id = aws_subnet.main-vpc-subnets[count.index+2].id
+  
+  subnet_id = aws_subnet.main-vpc-subnets[2].id
   route_table_id = aws_route_table.private-route.id
 }
   
-
+resource "aws_route_table_association" "private-route-association1" {
+  subnet_id = aws_subnet.main-vpc-subnets[3].id
+  route_table_id = aws_route_table.private-route.id
+}
+  
 

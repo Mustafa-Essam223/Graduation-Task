@@ -1,15 +1,16 @@
-output "subnet1-id" {
+output "public-subnet1" {
   value = aws_subnet.main-vpc-subnets[0].id 
 }
-output "subnet2-id" {
+output "public-subnet2" {
   value = aws_subnet.main-vpc-subnets[1].id 
 }
-output "subnet3-id" {
+output "private-subnet3" {
   value = aws_subnet.main-vpc-subnets[2].id 
 }
-output "subnet4-id" {
+output "private-subnet4" {
   value = aws_subnet.main-vpc-subnets[3].id 
 }
+
 output "vpc-id" {
     value=aws_vpc.main-vpc.id
 }

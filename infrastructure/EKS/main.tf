@@ -11,20 +11,25 @@ resource "aws_eks_node_group" "private" {
   cluster_name = aws_eks_cluster.eks-cluster.name
   node_group_name = "worker-nodes"
   node_role_arn = var.eks-node-role____arn
+  
   subnet_ids = var.subnet_list____ids
-  instance_types = ["t2.micro"]
+  instance_types = ["t2.medium"]
   #ami = "ami-053b0d53c279acc90"
+
   scaling_config {
     desired_size = 1
-    min_size = 0
+    min_size = 1
     max_size = 1
   }
+  remote_access {
+    ec2_ssh_key = var.ssh_key
+  }
   #depends on roles of node-group
-
-
-
-
-
 }
+
+
+
+
+
 
 

@@ -4,9 +4,10 @@ variable "cidr_blocks" {
 }
 variable "zones" {
     type = list(string)
-    default  = ["us-east-1a","us-east-1b","us-east-1c","us-east-1d"]
+    default  = ["us-east-1a","us-east-1b"]
 }
 variable "subnet-names" {
   type = list(string)
-  default  = ["public-us-east-1a","public-us-east-1b","private-us-east-1c","private-us-east-1d"]
+  default  = ["public-us-east-1a","public-us-east-2a","private-us-east-1b","private-us-east-2b"]
 }
+/* variable "subnet-key" {} */
