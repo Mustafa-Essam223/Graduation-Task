@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: myAPP
-          image: mustafaessam/customimgae:v1
+          image: mustafaessam/backendsimpleapp:v55
           ports:
             - containerPort: 3000
               protocol: TCP
