@@ -33,11 +33,6 @@ kubectl logs -f -n jenkins <pod-name>
 ### now you can access Jenkins GUI using LoadBalancer DNS name
 - sign in by the password
 - create your pipeline, to access my repo and apply CD pipelines on it you can use the link [https://github.com/Mustafa-Essam223/App-repo]
-### to access my web-app apply the resources listed in the repo
-```
-1. kubectl apply -f backend-namespace.yml
-2. kubectl apply -f deployment.yaml
-3. kubectl apply -f LoadBalancer.yaml
-```
+### to access my web-app use Jenkinsfile 
 ### you can view the app using the new LoadBalancer DNS name
 
