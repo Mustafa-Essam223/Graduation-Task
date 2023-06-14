@@ -8,6 +8,7 @@ terraform init
 terraform plan 
 terraform apply 
 ```
+### access the public ec2 via console connect
 ### Using Jumb-Host instance (public ec2) to access the private cluster
 ```
 aws eks --region us-east-1 update-kubeconfig --name eks-cluster
