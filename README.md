@@ -39,3 +39,5 @@ kubectl logs -f -n jenkins <pod-name>
 2. kubectl apply -f deployment.yaml
 3. kubectl apply -f LoadBalancer.yaml
 ```
+### you can view the app using the new LoadBalancer DNS name
+
