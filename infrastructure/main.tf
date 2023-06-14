@@ -29,4 +29,5 @@ module "Jumb-Host" {
   subnet-id     = module.network.public-subnet1
   sg-id         = module.network.sg-id
   instance_name = "Jumb-Host"
+
 }
