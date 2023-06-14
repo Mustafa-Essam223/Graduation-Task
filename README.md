@@ -2,6 +2,11 @@
 
 # Final-Task 
 ### Jenkins & backend-application deployment on eks cluster  
+### you can get my infrastructure by cloning my repositry 
+```
+git clone https://github.com/Mustafa-Essam223/Infra-repo
+cd Infra-repo/infrastructure/
+```
 
 ### Create infrastructure using terraform with its all associations and dependencies and network
 ```
@@ -9,16 +14,23 @@ terraform init
 terraform plan 
 terraform apply 
 ```
-### access the public ec2 via console connect
-### Using Jumb-Host instance (public ec2) to access the private cluster
+## connect to the public ec2 (Jumb-Host) via console connect
+
+### Using Jumb-Host you can access the cluster using command
 ```
 aws eks --region us-east-1 update-kubeconfig --name eks-cluster
 ```
-### apply k8s files inside the cluster to deploy jenkins, then use its loadbalancer dns name to access it 
+### apply k8s files inside the cluster to deploy jenkins
 ```
-a3837d023a56a4fb4baaf358bdcbda20-1904527929.us-east-1.elb.amazonaws.com
+git clone https://github.com/Mustafa-Essam223/Infra-repo
+kubectl apply -f k8s_file
 ```
-### finally u can access my application through loadbalancer dns name
+### get the initialAdminPassword of jenkins from pod logs 
 ```
-a726579675a4a482386dc99ef892329f-f903a97250a7e2cd.elb.us-east-1.amazonaws.com
+kubectl get po -n jenkins
+kubectl logs -f -n jenkins <pod-name>
 ```
+### now you can access Jenkins GUI using LoadBalancer DNS name
+- sign in by the password
+- create your pipeline, to access my repo and apply CD pipelines on it you can use the link [https://github.com/Mustafa-Essam223/App-repo]
+        - 
