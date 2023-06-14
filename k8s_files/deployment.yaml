@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins
+  namespace: jenkins
+  labels:
+    app: jenkins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      serviceAccountName: jenkins-admin
+      containers:
+        - name: jenkins
+          image: mustafaessam/jenkins_iti:v3
+          ports:
+            - name: http
+              containerPort: 8080
+          volumeMounts:
+            - name: pv-jenkins
+              mountPath: /var/jenkins_home
+            - name: docker-socket
+              mountPath: /var/run/docker.sock
+      volumes:
+        - name: pv-jenkins
+          persistentVolumeClaim:
+              claimName: claim-jenkins
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock 
